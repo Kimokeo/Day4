@@ -11,31 +11,33 @@ class Track
 
 	def initialize
 		self.fence = "#" * 100
+		self.steps = 0
 	end	
 
 	def horse_track
-		puts "=" * Horse1.steps + rand(0..7)
-		print horse1.image
-		puts :fence
-		puts "=" * Horse2.steps + rand(0..7)
-		print horse2.image
-		puts :fence
-		puts "=" * Horse3.steps + rand(0..7)
-		print horse3.image
-		puts :fence
-		puts "=" * Horse4.steps + rand(0..7)
-		print horse4.image
-		puts :fence
+		puts Track.fence
 	end
 end
 
 class Horse
 	attr_accessor :name
 	attr_accessor :image
-
+	attr_accessor :steps
+	
 	def run 
 		puts "Cheer on your horse"
-		gets.chomp
+		puts "=" * (self.steps += rand(0..7)) 
+		print self.image
+		
+		# puts "=" * horse2[:steps] += rand(0..7)
+		# print horse2.image
+		
+		# puts "=" * horse3[:steps] += rand(0..7)
+		# print horse3.image
+		
+		# puts "=" * horse4[:steps] += rand(0..6)
+		# print horse4.image
+		
 		
  	end
  	
@@ -71,10 +73,17 @@ horse4.image = "XD"
 horse4.steps = 0
 
 
+
+
 Horse.new.start
-Horse.new.run
 if horse1.steps > 100
 	puts you lose
 else
+	horse1.run
 	Track.new.horse_track
+	horse2.run
+	Track.new.horse_track
+	horse3.run
+	Track.new.horse_track
+	horse4.run
 end
