@@ -10,12 +10,12 @@ class Track
 	attr_accessor :image
 
 	def initialize
-		self.fence = "#" * 100
+		self.fence = "#==" * 30
 		self.steps = 0
 	end	
 
 	def horse_track
-		puts Track.fence
+		puts self.fence
 	end
 end
 
@@ -25,9 +25,8 @@ class Horse
 	attr_accessor :steps
 	
 	def run 
-		puts "Cheer on your horse"
-		puts "=" * (self.steps += rand(0..7)) 
-		print self.image
+		puts "=" * (self.steps += rand(5..15)) 
+		puts self.image
 		
 		# puts "=" * horse2[:steps] += rand(0..7)
 		# print horse2.image
@@ -72,13 +71,17 @@ horse4.name = "kimosabe"
 horse4.image = "XD"
 horse4.steps = 0
 
-
+fence = Track.new
+fence =  "#" * 100
 
 
 Horse.new.start
-if horse1.steps > 100
-	puts you lose
-else
+loop do
+	if horse1.steps > 100
+	puts "you lose"
+	break
+	else
+	Track.new.horse_track
 	horse1.run
 	Track.new.horse_track
 	horse2.run
@@ -86,4 +89,7 @@ else
 	horse3.run
 	Track.new.horse_track
 	horse4.run
+	puts "Cheer on your horse"
+	gets
+end
 end
