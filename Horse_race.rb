@@ -3,14 +3,16 @@
 # create movement operation (rand)
 # create win condition
 # cheat code
+
+$lengthOfRace = 95
+
 class Track
 	attr_accessor :fence
 	attr_accessor :steps
-	attr_accessor :speed
-	attr_accessor :image
 
 	def initialize
-		self.fence = "#==" * 30
+
+		self.fence = "#==" * ($lengthOfRace/3)
 		self.steps = 0
 	end	
 
@@ -25,71 +27,63 @@ class Horse
 	attr_accessor :steps
 	
 	def run 
-		puts "=" * (self.steps += rand(5..15)) 
+		print "=" * (self.steps += rand(5..15)) 
 		puts self.image
-		
-		# puts "=" * horse2[:steps] += rand(0..7)
-		# print horse2.image
-		
-		# puts "=" * horse3[:steps] += rand(0..7)
-		# print horse3.image
-		
-		# puts "=" * horse4[:steps] += rand(0..6)
-		# print horse4.image
-		
-		
  	end
  	
- 		def start
-		puts "would you like to race? "
+ 	def start
+		print "would you like to race? "
 		gets.chomp
- 	
 	end 
 end
 
 horse1 = Horse.new
 horse1.name = "stalin"
-# horse1.speed = rand(0..7)
 horse1.image = ":{"
 horse1.steps = 0
 
 horse2 = Horse.new
 horse2.name = "hussain"
-# horse2.speed = rand(2..5)
 horse2.image = "=E"
 horse2.steps = 0
 
 horse3 = Horse.new
 horse3.name = "dear_leader_kim_jong_un"
-# horse3.speed = rand(3..4)
 horse3.image = ":("
 horse3.steps = 0
 
 horse4 = Horse.new
 horse4.name = "kimosabe"
-# horse4.speed = rand(1..5)
 horse4.image = "XD"
 horse4.steps = 0
 
-fence = Track.new
-fence =  "#" * 100
-
+horseList = [horse1, horse2, horse3, horse4]
+win_condition = false
 
 Horse.new.start
-loop do
-	if horse1.steps > 100
-	puts "you lose"
-	break
-	else
-	Track.new.horse_track
-	horse1.run
-	Track.new.horse_track
-	horse2.run
-	Track.new.horse_track
-	horse3.run
-	Track.new.horse_track
-	horse4.run
-	puts "Cheer on your horse"
-	gets
-end
-end
+
+	loop do
+		horseList.each do |horse|
+			if horse.steps >= $lengthOfRace
+				$lengthOfRace = horse.steps
+				puts horse.name + " wins!"
+				win_condition = true
+			end
+		end
+		if win_condition
+			break
+		end
+
+		Track.new.horse_track
+		horse1.run
+		Track.new.horse_track
+		horse2.run
+		Track.new.horse_track
+		horse3.run
+		Track.new.horse_track
+		horse4.run
+		puts "Cheer on your horse"
+		if gets.chomp == "cheat"
+			horse4.steps += 10
+		end
+	end
